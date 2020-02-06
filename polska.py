@@ -19,20 +19,19 @@ def main():
         operation = input('Введите выражение для вычисления, для выхода нажмите q: ').split()
         if operation == ['q']:
             break
+        try:
+            if len(operation) != 3 or operation == []:
+                raise LenError()
+            int(operation[1])
+            int(operation[2])
+            assert operation[0] in ['+', '-', '*', '/']
+        except LenError:
+            print('Введено некорректное количество данных')
+        except ValueError:
+            print('Введено НЕ число для выполнения действия.')
+        except AssertionError:
+            print(f'{operation[0]} не найдено в списке действий.')
         else:
-            assert operation[0] in ['+', '-', '*', '/'], f'{operation[0]} is not found'
-            try:
-                if len(operation) != 3:
-                    raise LenError()
-            except:
-                    print('Введено некорректное количество данных')
-            else:
-                try:
-                    int(operation[1])
-                    int(operation[2])
-                except ValueError:
-                    print('Введено НЕ число для выполнения действия.')
-                else:
-                    action(operation[1], operation[2], operation[0])
+            action(operation[1], operation[2], operation[0])
 
 main()
